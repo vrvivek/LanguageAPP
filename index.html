@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Language</title>
+</head>
+<body>
+    <form>
+        <table border="1">
+            <tr>
+                <th>Select Language</th>
+                <th>
+                    <select name="lang" id="lang">
+                        <option value="">Languages</option>
+                        <option value="EN">English</option>
+                        <option value="GU">Gujarati</option>
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th>Enter </th>
+                <th id="name"></th>
+            </tr>
+            <tr>
+                <th>Message</th>
+                <th id="message"></th>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+<script>
+    $("#lang").change(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:"http://localhost:65206/api/Language?lng="+$(this).val(),
+            type:"get",
+            success : function(result){
+                var data=JSON.parse(result);
+                $("#name").html(data.Name);
+                $("#message").html(data.Hello);
+            }
+        });
+    });
+</script>
